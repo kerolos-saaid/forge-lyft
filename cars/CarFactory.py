@@ -1,9 +1,11 @@
 import datetime
-from cars.models.Calliope import Calliope
-from cars.models.Glissade import Glissade
-from cars.models.Thovex import Thovex
-from cars.models.Rorschach import Rorschach
-from cars.models.Palindrome import Palindrome
+
+from Car import Car
+from battery.types.Nubbin import NubbinBattery
+from battery.types.Spindler import SpindlerBattery
+from engine.types.Capulet import CapuletEngine
+from engine.types.Sternman import SternmanEngine
+from engine.types.Willoughby import WilloughbyEngine
 
 
 class CarFactory:
@@ -11,20 +13,30 @@ class CarFactory:
 
     @staticmethod
     def create_calliope(current_date, last_service_date, current_mileage, last_service_mileage):
-        return Calliope(last_service_date, current_mileage, last_service_mileage, current_date)
+        engine = CapuletEngine(current_mileage, last_service_mileage)
+        battery = SpindlerBattery(last_service_date, current_date)
+        return Car(engine, battery)
 
     @staticmethod
     def create_glissade(current_date, last_service_date, current_mileage, last_service_mileage):
-        return Glissade(last_service_date, current_mileage, last_service_mileage, current_date)
+        engine = WilloughbyEngine(current_mileage, last_service_mileage)
+        battery = SpindlerBattery(last_service_date, current_date)
+        return Car(engine, battery)
 
     @staticmethod
     def create_rorschach(current_date, last_service_date, current_mileage, last_service_mileage):
-        return Rorschach(last_service_date, current_mileage, last_service_mileage, current_date)
+        engine = WilloughbyEngine(current_mileage, last_service_mileage)
+        battery = NubbinBattery(last_service_date, current_date)
+        return Car(engine, battery)
 
     @staticmethod
     def create_thovex(current_date, last_service_date, current_mileage, last_service_mileage):
-        return Thovex(last_service_date, current_mileage, last_service_mileage, current_date)
+        engine = CapuletEngine(current_mileage, last_service_mileage)
+        battery = NubbinBattery(last_service_date, current_date)
+        return Car(engine, battery)
 
     @staticmethod
     def create_palindrome(current_date, last_service_date, warning_indicator):
-        return Palindrome(last_service_date, warning_indicator, current_date)
+        engine = SternmanEngine(warning_indicator)
+        battery = SpindlerBattery(last_service_date, current_date)
+        return Car(engine, battery)
